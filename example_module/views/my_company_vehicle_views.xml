@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="my_company_vehicle_form" model="ir.ui.view">
+        <field name="model">my.company.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Vehicles">
+                <header>
+                    <button name="action_schedule_service" string="Schedule Service" type="object"
+                        class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="license_plate"/>
+                            <field name="fuel_type"/>
+                        </group>
+                        <group>
+                            <field name="mileage"/>
+                            <field name="last_service_date"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="my_company_vehicle_kanban" model="ir.ui.view">
+        <field name="model">my.company.vehicle</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="license_plate"/>
+                <field name="needs_service"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <h4 class="o_kanban_record_title">
+                                <field name="name"/>
+                            </h4>
+                            <h4 class="o_kanban_record_title">
+                                <field name="license_plate"/>
+                            </h4>
+                            <h4 class="o_kanban_record_title">
+                                <field name="needs_service"/>
+                            </h4>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="my_company_vehicle_action" model="ir.actions.act_window">
+        <field name="name">Vehicles</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">my.company.vehicle</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <menuitem id="my_company_vehicle_menu_root" name="Fleet Management" sequence="10"/>
+    <menuitem id="my_company_vehicle_menu" name="Vehicles" parent="my_company_vehicle_menu_root"
+        action="my_company_vehicle_action" groups="group_vehicle_manager"/>
+</odoo>
